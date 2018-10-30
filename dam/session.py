@@ -39,5 +39,7 @@ class Session(AuthSession):
             raise BadInput()
 
         for app in self.get_apps():
-            if app.id == id or app.name == name:
+            if app.id == id:
+                return app
+            elif app.name == name:
                 return app
