@@ -14,10 +14,8 @@ class Session(AuthSession):
                 A list of app sessions
         """
 
-        apps_json = self.authreq(
-                'GET',
-                'https://discordapp.com/api/oauth2/applications',
-        ).json()
+        app_link = 'https://discordapp.com/api/oauth2/applications'
+        apps_json = self.get(app_link).json()
 
         get_app = lambda app: App(app['id'], app['name'], self.token)
         return [get_app(app) for app in apps_json]

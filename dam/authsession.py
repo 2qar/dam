@@ -1,8 +1,13 @@
+from functools import partial
 import requests
 
 class AuthSession:
     def __init__(self, token):
         self.token = token
+
+        # tasty hacky code
+        for method in ['GET', 'POST', 'DELETE']:
+            setattr(self, method.lower(), partial(self.authreq, method))
 
     def authreq(self, method, link, headers=None, json=None):
         method = method.lower()

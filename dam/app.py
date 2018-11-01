@@ -32,11 +32,7 @@ class App(AuthSession):
             'type': 1
         }
 
-        r = self.authreq(
-                'POST',
-                self.link,
-                json=params
-        )
+        r = self.post(self.link, json=params)
         return r.json()['id']
 
     def delete_image(self, image_id):
@@ -47,4 +43,4 @@ class App(AuthSession):
         """
 
         link = f'{self.link}/{image_id}'
-        self.authreq('POST', link)
+        self.post(link)
