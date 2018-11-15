@@ -35,7 +35,7 @@ class Session(AuthSession):
         """
 
         if not id and not name:
-            raise BadInput()
+            raise ValueError('No input given.')
 
         for app in self.get_apps():
             if app.id == id:

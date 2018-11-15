@@ -7,3 +7,7 @@ def test_get_apps():
 
 def test_get_app():
     assert pytest.session.get_app(name=pytest.app_name) is not None
+
+def test_get_app_no_input():
+    with pytest.raises(ValueError):
+        pytest.session.get_app()

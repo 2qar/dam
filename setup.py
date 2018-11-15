@@ -7,7 +7,7 @@ setup(
     name="dam",
     author="BigHeadGeorge",
     url="https://github.com/BigHeadGeorge/dam",
-    version="0.0.1",
+    version="0.0.2",
     packages=['dam'],
     zip_safe=True,
     description="A simple package for managing Discord dev applications.",
