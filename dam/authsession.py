@@ -1,6 +1,7 @@
 from functools import partial
 import requests
 
+
 class AuthSession:
     def __init__(self, token):
         self.token = token

@@ -1,10 +1,8 @@
 from pathlib import Path
-import errno
-import os
-from collections import namedtuple
 
 from .authsession import AuthSession
 from .helpers import asset_safe_name, get_b64_image
+
 
 class App(AuthSession):
     def __init__(self, id, name, token):

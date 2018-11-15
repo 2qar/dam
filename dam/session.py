@@ -1,6 +1,7 @@
 from .authsession import AuthSession
 from .app import App
 
+
 class Session(AuthSession):
     def __init__(self, token):
         super().__init__(token)

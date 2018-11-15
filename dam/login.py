@@ -2,6 +2,8 @@ import requests
 from getpass import getpass
 
 from .session import Session
+from .exceptions import BadCredentials
+
 
 def login(email=None, password=None):
     if not email:

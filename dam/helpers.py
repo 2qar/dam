@@ -1,6 +1,7 @@
 from base64 import b64encode
 from pathlib import Path
 
+
 def get_b64_image(img_path):
     safe_path = Path(img_path)
     with open(safe_path, 'rb') as img_file:
@@ -13,6 +14,7 @@ def get_b64_image(img_path):
     trimmed_img = str(encoded[3:])[2:-1]
     encoded_image = f'data:image/{filetype};base64,/9j{trimmed_img}'
     return encoded_image
+
 
 def asset_safe_name(name):
     safe_name = name
