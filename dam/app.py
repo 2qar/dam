@@ -8,8 +8,57 @@ class App(AuthSession):
     def __init__(self, id, name, token):
         super().__init__(token)
         self.id = id
-        self.name = name
-        self.link = f'https://discordapp.com/api/oauth2/applications/{id}/assets'
+        self._name = name
+        self.link = f'https://discordapp.com/api/oauth2/applications/{id}'
+        self.assets = f'{self.link}/assets'
+
+    def _get_info(self):
+        return self.get(self.link).json()
+
+    def get_profile_pic_id(self):
+        return self._get_info()['icon']
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        size = len(name)
+        if size < 2 or size > 128:
+            raise ValueError('Name must be between 2 and 128 characters.')
+
+        self.patch(self.link, json={'name': name})
+        self._name = name
+        pass
+
+    @property
+    def bot_token(self):
+        """ Gets the app's bot token, if it has a bot account.
+
+            :rtype:
+                str | None
+            :returns:
+                The bot's token
+        """
+
+        info = self._get_info()
+
+        try:
+            return info['bot']['token']
+        except KeyError:
+            return
+
+    @property
+    def is_bot(self):
+        """ Check if an app has a bot account.
+
+            :rtype:
+                bool
+            :returns:
+                True if bot, false if not. :)
+        """
+        return bool(self.bot_token)
 
     def upload_image(self, image_path):
         """ Uploads an image.
@@ -30,7 +79,7 @@ class App(AuthSession):
             'type': 1
         }
 
-        r = self.post(self.link, json=params)
+        r = self.post(self.assets, json=params)
         return r.json()['id']
 
     def delete_image(self, image_id):
@@ -40,5 +89,5 @@ class App(AuthSession):
                 ID of the image to delete.
         """
 
-        link = f'{self.link}/{image_id}'
+        link = f'{self.assets}/{image_id}'
         self.post(link)

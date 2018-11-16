@@ -7,7 +7,7 @@ class AuthSession:
         self.token = token
 
         # tasty hacky code
-        for method in ['GET', 'POST', 'DELETE']:
+        for method in ['GET', 'POST', 'DELETE', 'PATCH']:
             setattr(self, method.lower(), partial(self.authreq, method))
 
     def authreq(self, method, link, headers=None, json=None):
