@@ -29,3 +29,15 @@ def test_change_name():
     app.name = 'testing'
     assert app.name == 'testing'
     app.name = 'TestBot'
+
+
+def test_change_name_too_long():
+    app = pytest.session.get_app(name=pytest.app_name)
+    with pytest.raises(ValueError):
+        app.name = 'ogdog' * 50
+
+
+def test_change_name_too_short():
+    app = pytest.session.get_app(name=pytest.app_name)
+    with pytest.raises(ValueError):
+        app.name = '1'

@@ -30,7 +30,6 @@ class App(AuthSession):
 
         self.patch(self.link, json={'name': name})
         self._name = name
-        pass
 
     @property
     def bot_token(self):
